@@ -6,21 +6,15 @@ exports.notFound = (req, res, next) => {
   next(error);
 };
 
-exports.catchAsync = (fn, status = 400, jsonRes = true) => {
+exports.catchAsync = (fn, status = 400) => {
   return (req, res, next) => {
     fn(req, res, next).catch(error => {
       error.status = status;
-      error.json = jsonRes;
       next(error);
     });
   };
 };
 
 exports.cacheErrors = (err, req, res, next) => {
-  res.status(err.status || 500);
-  if (err.json) {
-    res.json({ message: err.message });
-  } else {
-    res.render(err.render || "error.html", { message: err.message });
-  }
+  res.status(err.status || 500).json({ message: err.message });
 };

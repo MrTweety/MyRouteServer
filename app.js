@@ -7,6 +7,8 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const routesSub = require("./routes/sub");
+const routesRoutes = require("./routes/routes");
+
 
 const dbUser = "myRouteUser"; // edit
 const dbPass = "myRoutePass"; // edit
@@ -65,7 +67,8 @@ app.use(
 app.use(flash());
 
 app.use("/", routes);
-app.use("/sub", routesSub);
+app.use("/sub", routesSub);routesRoutes
+app.use("/routes", routesRoutes);
 
 app.use((req, res, next) => {
   res.status(404).render("404.html");

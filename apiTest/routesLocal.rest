@@ -1,0 +1,62 @@
+#instal: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###
+GET http://localhost:8080/routes
+
+###
+GET http://localhost:8080/routes/5dc4250274872714e432f131
+
+###
+ DELETE  http://localhost:8080/routes/5dc4250274872714e432f131
+
+###
+PUT http://localhost:8080/routes/5dc427eabff1ff02e49d636c
+Content-Type: application/json
+
+{
+    "name": "PUT"
+}
+
+###
+POST http://localhost:8080/routes
+Content-Type: application/json
+
+{
+    "name":"Post",
+    "startDate":1573100105,
+    "endDate":1573119105,
+    "coords":
+        [
+            {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            },
+            {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            },
+            {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            },
+                {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            },
+                {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            }
+        ]
+}
+
+

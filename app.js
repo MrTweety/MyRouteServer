@@ -8,24 +8,24 @@ const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const routesSub = require("./routes/sub");
 const routesRoutes = require("./routes/routes");
-
+const errorHandler = require("./middleware/errors");
 
 const dbUser = "myRouteUser"; // edit
 const dbPass = "myRoutePass"; // edit
 
-//url mongodb.net 
-const mongoDBUrl =
-  `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/test?retryWrites=true&w=majority`;
+//url mongodb.net
+const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/test?retryWrites=true&w=majority`;
 
 //url azure.net
 // const mongoDBUrl =
 //   `mongodb://${dbUser}:c9Jt15nCpqANlJe00BNr4nyUC7F01HCp2V3BhvUCAWhY9bCvAfwcwtzoI09yZuJa8trw5aiq3Y085ZgBntjczA%3D%3D@myroutedb.documents.azure.com:10255/?ssl=true`;
 
-  mongoose.connect(mongoDBUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
+mongoose
+  .connect(mongoDBUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  
 const db = mongoose.connection;
 db.on("error", error => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
@@ -34,13 +34,12 @@ db.once("open", () => console.log("Connected to Database"));
 // const MongoClient = require('mongodb').MongoClient;
 // const client = new MongoClient(mongoDBUrl, { useNewUrlParser: true });
 // client.connect(err => {
-// console.log("MG-log: dupa")
 // const collection = client.db("test").collection("devices");
-// console.log("MG-log: collection", collection)
+// console.log("collection: ", collection)
 //   // perform actions on the collection object
 //   client.close();
 //   if(err){
-//   console.log("MG-log: err", err)
+//   console.log("err: ", err)
 //   }
 // });
 
@@ -67,11 +66,11 @@ app.use(
 app.use(flash());
 
 app.use("/", routes);
-app.use("/sub", routesSub);routesRoutes
+app.use("/sub", routesSub);
+routesRoutes;
 app.use("/routes", routesRoutes);
 
-app.use((req, res, next) => {
-  res.status(404).render("404.html");
-});
+app.use(errorHandler.notFound);
+app.use(errorHandler.cacheErrors);
 
 module.exports = app;

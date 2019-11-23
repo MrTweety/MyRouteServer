@@ -3,7 +3,7 @@ const router = express.Router();
 const { Routes } = require("../models/routes");
 
 const getRoute = async (req, res, next) => {
-  console.log("MG-log: getRoute -> req.params.id)", req.params.id);
+  console.log("getRoute -> req.params.id:", req.params.id);
   try {
     route = await Routes.findById(req.params.id);
     if (route == null) {

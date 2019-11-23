@@ -14,7 +14,7 @@ const dbUser = "myRouteUser"; // edit
 const dbPass = "myRoutePass"; // edit
 
 //url mongodb.net
-const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/test?retryWrites=true&w=majority`;
+const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/test2?retryWrites=true&w=majority`;
 
 //url azure.net
 // const mongoDBUrl =

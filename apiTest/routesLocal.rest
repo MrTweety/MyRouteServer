@@ -3,7 +3,7 @@
 GET http://localhost:8080/routes
 
 ###
-GET http://localhost:8080/routes/5dc4250274872714e432f131
+GET http://localhost:8080/routes/5dd90fd3dff57531549c5279
 
 ###
  DELETE  http://localhost:8080/routes/5dc4250274872714e432f131
@@ -58,5 +58,34 @@ Content-Type: application/json
             }
         ]
 }
+
+
+
+###
+POST http://localhost:8080/routes/comment/5dd90fd3dff57531549c5279
+
+Content-Type: application/json
+
+{
+    "name":"Post",
+    "startDate":1573100105,
+    "endDate":1573119105,
+    "coords":
+        [
+            {
+                "latitude":57.55555,
+                "longitude":-15.888,
+                "altitude":25,
+                "timestamp":1573119105
+            }
+        ]
+}
+
+###
+GET http://localhost:8080/routes/comment/5dd909f085f71539e8d29196
+
+
+
+
 
 

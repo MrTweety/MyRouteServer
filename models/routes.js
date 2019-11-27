@@ -6,7 +6,7 @@ const userSchema = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: Date
     // required: true,
     // default: Date.now
   }
@@ -14,7 +14,7 @@ const userSchema = new Schema({
 
 const commentSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "User" },
-  parens: { type: Schema.Types.ObjectId,  ref: "Comment"},
+  parens: { type: Schema.Types.ObjectId, ref: "Comment" },
   date: {
     type: Date,
     required: true,
@@ -22,8 +22,8 @@ const commentSchema = new Schema({
   },
   comment: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 const coordsSchema = new Schema({

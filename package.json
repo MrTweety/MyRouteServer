@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "startDev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier-check": "prettier-check **/*.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "",
   "license": "ISC",
@@ -13,10 +14,21 @@
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
-    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.8"
-  }
+  },
+  "devDependencies": {
+    "husky": "^3.0.8",
+    "prettier": "^1.19.1",
+    "prettier-check": "^2.0.0",
+    "pretty-quick": "^1.11.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "private": true
 }

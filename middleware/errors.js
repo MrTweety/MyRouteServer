@@ -2,7 +2,6 @@ exports.notFound = (req, res, next) => {
   //res.status(404).render("404.html");
   const error = new Error("404 page not found");
   error.status = 404;
-  error.render = "404.html";
   next(error);
 };
 

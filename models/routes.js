@@ -54,6 +54,7 @@ const routesSchema = new Schema({
     type: String,
     required: true
   },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   coords: [coordsSchema],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   startDate: {

@@ -10,6 +10,6 @@ module.exports = getUser = async (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 
-  res.user = user;
+  res.status(200).user = user;
   next();
 };

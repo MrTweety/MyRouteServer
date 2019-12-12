@@ -5,6 +5,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const routesRoutes = require("./routes/routes");
 const usersRoutes = require("./routes/users");
+const tokensRoutes = require("./routes/tokens");
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
 
@@ -40,6 +41,7 @@ app.use(
 
 app.use(jwtHandler.verifyToken);
 
+app.use("/tokens", tokensRoutes);
 app.use("/routes", routesRoutes);
 app.use("/user", usersRoutes);
 

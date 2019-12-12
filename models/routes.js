@@ -12,20 +12,6 @@ const userSchema = new Schema({
   }
 });
 
-const commentSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: "User" },
-  parens: { type: Schema.Types.ObjectId, ref: "Comment" },
-  date: {
-    type: Date,
-    required: true,
-    default: Date.now
-  },
-  comment: {
-    type: String,
-    required: true
-  }
-});
-
 const coordsSchema = new Schema({
   latitude: {
     type: Number,
@@ -45,6 +31,10 @@ const coordsSchema = new Schema({
   },
   timestamp: {
     type: Date,
+    required: false
+  },
+  image: {
+    type: String,
     required: false
   }
 });
@@ -72,11 +62,9 @@ const routesSchema = new Schema({
 const Routes = mongoose.model("Routes", routesSchema);
 const Coords = mongoose.model("Coords", coordsSchema);
 const User = mongoose.model("User", userSchema);
-const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = {
   Routes,
   Coords,
-  User,
-  Comment
+  User
 };

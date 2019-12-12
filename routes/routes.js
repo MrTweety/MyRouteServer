@@ -8,6 +8,7 @@ const getRouteById = require("../controllers/routes/getRouteById");
 const createRoute = require("../controllers/routes/createRoute");
 const deleteRouteById = require("../controllers/routes/deleteRouteById");
 const updateRouteById = require("../controllers/routes/updateRouteById");
+const getHeatMap = require("../controllers/routes/getHeatMap");
 
 createRoute;
 
@@ -15,6 +16,7 @@ const { Comment } = require("../models/routes");
 
 router
   .get("/", getAllRoutes)
+  .get("/heatMap", getHeatMap)
   .get("/:id", getRoute, getRouteById)
   .post("/", createRoute)
   .delete("/:id", getRoute, deleteRouteById)

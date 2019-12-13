@@ -1,8 +1,10 @@
 const { User } = require("../../../models/user");
+const { getUserIdFromToken } = require("../../../common/authUtils");
 
 module.exports = getUser = async (req, res, next) => {
   try {
-    user = await User.findById(req.params.id);
+    const userId = getUserIdFromToken(req);
+    user = await User.findById(userId);
     if (user == null) {
       return res.status(404).json({ message: "Cannot find user" });
     }

@@ -24,16 +24,20 @@ module.exports = createUser = async (req, res) => {
         "https://www.w3schools.com/howto/img_avatar.png?fbclid=IwAR3M84oA2sgO_zifUt4Ie4wXN9CMErW8hYQG0PHMPnpGIXRRpP4I_k7qtsA"
     });
     try {
-      user.token = jwtHandler.generateJWTToken({
+      const token = jwtHandler.generateJWTToken({
         name: req.body.name,
         login: req.body.login,
-        id: user._id
+        id: user._id,
+        time: Date.now
       });
 
-      // saveToken(token);
+      saveToken(token);
 
       const newUser = await user.save();
-      res.status(201).json(newUser);
+      res.status(201).json({
+        user: newUser,
+        token: token
+      });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

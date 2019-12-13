@@ -1,22 +1,27 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
+const { isTokenInDataBase } = require("../controllers/tokens/tokenUtils");
 
 const authRoutes = [
   {
-    method: "GET",
-    path: "/routes/"
+    method: "POST",
+    path: "/user/login"
+  },
+  {
+    method: "POST",
+    path: "/user/createUser"
   }
 ];
 
 const SECRET_KEY = "JWT_SECRET";
 
-const isAuthRequired = (httpMethod, url) => {
+const isAuthNotRequired = (httpMethod, url) => {
   for (let routeObj of authRoutes) {
     if (routeObj.method === httpMethod && routeObj.path === url) {
-      return true;
+      return false;
     }
   }
-  return false;
+  return true;
 };
 
 const verifyToken = jwtToken => {
@@ -42,6 +47,13 @@ const isUserInDatabase = async userData => {
   return user.length !== 0;
 };
 
+exports.getUserIdFromToken = req => {
+  let authHeader = req.header("Authorization");
+  let tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
+  const userData = verifyToken(tokenJWT);
+  return userData.id;
+};
+
 exports.generateJWTToken = payload => {
   return jwt.sign(payload, SECRET_KEY);
 };
@@ -49,12 +61,14 @@ exports.generateJWTToken = payload => {
 exports.verifyToken = (req, res, next) => {
   const { originalUrl, method } = req;
 
-  if (isAuthRequired(method, originalUrl)) {
+  if (isAuthNotRequired(method, originalUrl)) {
     let authHeader = req.header("Authorization");
     let tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
-    if (tokenJWT) {
+
+    const isTokenSaved = isTokenInDataBase(tokenJWT);
+    if (isTokenSaved) {
       const userData = verifyToken(tokenJWT);
-      console.log(userData);
+
       isUserInDatabase(userData).then(value => {
         if (!value) {
           return res.status(401).send({

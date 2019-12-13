@@ -1,7 +1,6 @@
 const { Routes } = require("../../models/routes");
 
 module.exports = createRoute = async (req, res) => {
-  console.log("dupa8");
   const route = new Routes({
     name: req.body.name,
     startDate: req.body.startDate,

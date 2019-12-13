@@ -16,17 +16,22 @@ const saveToken = async token => {
 
 const deleteToken = async token => {
   try {
-    await Tokens.findOneAndDelete({ token: token });
-    return true;
+    const findToken = await Tokens.find({ token: token });
+    if (findToken.length > 0) {
+      await findToken[0].remove();
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     console.log("[deleteToken]: error - ", error);
     return false;
   }
 };
 
-const isTokenInDataBase = token => {
+const isTokenInDataBase = async token => {
   try {
-    return Tokens.find({ token: token }).length === 1;
+    return (await Tokens.find({ token: token }).length) > 0;
   } catch (error) {
     console.log("[isTokenInDataBase]: error - ", error);
     return false;

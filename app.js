@@ -6,14 +6,17 @@ const mongoose = require("mongoose");
 const routesRoutes = require("./routes/routes");
 const usersRoutes = require("./routes/users");
 const tokensRoutes = require("./routes/tokens");
+const commentRoutes = require("./routes/comment");
+
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
 
 const dbUser = "myRouteUser"; // edit
 const dbPass = "myRoutePass"; // edit
+const dbName = "test2";
 
-//url mongodb.net
-const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/test2?retryWrites=true&w=majority`;
+const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+// const mongoDBUrl = `mongodb://127.0.0.1:27017/${dbName}?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoDBUrl, {
   useNewUrlParser: true,
@@ -44,6 +47,7 @@ app.use(jwtHandler.verifyToken);
 app.use("/tokens", tokensRoutes);
 app.use("/routes", routesRoutes);
 app.use("/user", usersRoutes);
+app.use("/comment", commentRoutes);
 
 app.use(errorHandler.notFound);
 app.use(errorHandler.cacheErrors);

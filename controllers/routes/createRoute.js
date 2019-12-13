@@ -4,7 +4,7 @@ module.exports = createRoute = async (req, res) => {
   const route = new Routes({
     name: req.body.name,
     startDate: req.body.startDate,
-    startDate: req.body.startDate,
+    endDate: req.body.endDate,
     coords: req.body.coords
   });
   try {

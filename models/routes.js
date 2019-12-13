@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  date: {
-    type: Date
-    // required: true,
-    // default: Date.now
-  }
-});
 
 const coordsSchema = new Schema({
   latitude: {
@@ -61,10 +50,10 @@ const routesSchema = new Schema({
 
 const Routes = mongoose.model("Routes", routesSchema);
 const Coords = mongoose.model("Coords", coordsSchema);
-const User = mongoose.model("User", userSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = {
   Routes,
   Coords,
-  User
+  Comment
 };

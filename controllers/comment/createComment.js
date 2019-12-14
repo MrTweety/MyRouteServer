@@ -2,7 +2,7 @@ const { Comment } = require("../../models/comment");
 
 module.exports = createComment = async (req, res) => {
   const comment = new Comment({
-    author: "5de174842f776c6e9287b1c6",
+    author: req.body.author,
     comment: req.body.comment,
     parens: req.body.parens,
     route: req.params.id

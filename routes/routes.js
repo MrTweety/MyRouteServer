@@ -9,6 +9,8 @@ const createRoute = require("../controllers/routes/createRoute");
 const deleteRouteById = require("../controllers/routes/deleteRouteById");
 const updateRouteById = require("../controllers/routes/updateRouteById");
 const getHeatMap = require("../controllers/routes/getHeatMap");
+const likeRouteById = require("../controllers/routes/likeRouteById");
+const dislikeRouteById = require("../controllers/routes/dislikeRouteById");
 
 router
   .get("/", getAllRoutes)
@@ -16,5 +18,8 @@ router
   .get("/:id", getRoute, getRouteById)
   .post("/", createRoute)
   .delete("/:id", getRoute, deleteRouteById)
-  .put("/:id", getRoute, updateRouteById);
+  .put("/:id", getRoute, updateRouteById)
+  .post("/like/:id", getRoute, likeRouteById)
+  .post("/dislike/:id", getRoute, dislikeRouteById);
+
 module.exports = router;

@@ -5,6 +5,7 @@ module.exports = createRoute = async (req, res) => {
     name: req.body.name,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
+    routeAuthor: req.body.routeAuthor,
     coords: req.body.coords
   });
   try {

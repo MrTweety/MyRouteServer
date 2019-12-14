@@ -27,7 +27,7 @@ module.exports = createUser = async (req, res) => {
       const token = jwtHandler.generateJWTToken({
         name: req.body.name,
         login: req.body.login,
-        id: user._id,
+        _id: user._id,
         time: Date.now
       });
 
@@ -35,7 +35,11 @@ module.exports = createUser = async (req, res) => {
 
       const newUser = await user.save();
       res.status(201).json({
-        user: newUser,
+        name: newUser.name,
+        login: newUser.login,
+        _id: newUser._id,
+        avatar: newUser.avatar,
+        mail: newUser.mail,
         token: token
       });
     } catch (error) {

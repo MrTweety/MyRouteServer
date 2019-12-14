@@ -34,8 +34,11 @@ const verifyToken = jwtToken => {
 };
 
 const isUserInDatabase = async userData => {
+  console.log("MG-log: userData", userData);
+  let user;
   try {
-    user = await User.findById(userData.id);
+    user = await User.findById(userData._id);
+    console.log("MG-log: user", user);
   } catch (error) {
     return false;
   }
@@ -51,7 +54,10 @@ exports.getUserIdFromToken = req => {
   let authHeader = req.header("Authorization");
   let tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
   const userData = verifyToken(tokenJWT);
-  return userData.id;
+  console.log(
+    "function getUserIdFromToken is deprecated. Use req.jwtUser._id if you can"
+  );
+  return userData._id;
 };
 
 exports.generateJWTToken = payload => {
@@ -60,14 +66,15 @@ exports.generateJWTToken = payload => {
 
 exports.verifyToken = (req, res, next) => {
   const { originalUrl, method } = req;
-
+  let userData;
+  let tokenJWT;
   if (isAuthNotRequired(method, originalUrl)) {
     let authHeader = req.header("Authorization");
-    let tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
+    tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
 
     const isTokenSaved = isTokenInDataBase(tokenJWT);
     if (isTokenSaved) {
-      const userData = verifyToken(tokenJWT);
+      userData = verifyToken(tokenJWT);
 
       isUserInDatabase(userData).then(value => {
         if (!value) {
@@ -90,5 +97,7 @@ exports.verifyToken = (req, res, next) => {
       });
     }
   }
+  req.jwtToken = tokenJWT;
+  req.jwtUser = userData;
   next();
 };

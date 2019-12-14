@@ -33,9 +33,10 @@ const routesSchema = new Schema({
     type: String,
     required: true
   },
-  user: { type: Schema.Types.ObjectId, ref: "User" },
   coords: [coordsSchema],
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  routeAuthor: { type: Schema.Types.ObjectId, ref: "User", required: true },
   startDate: {
     type: Date,
     required: true
@@ -50,10 +51,8 @@ const routesSchema = new Schema({
 
 const Routes = mongoose.model("Routes", routesSchema);
 const Coords = mongoose.model("Coords", coordsSchema);
-const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = {
   Routes,
-  Coords,
-  Comment
+  Coords
 };

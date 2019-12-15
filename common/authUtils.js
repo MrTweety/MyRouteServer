@@ -42,6 +42,9 @@ const isUserInDatabase = async userData => {
   } catch (error) {
     return false;
   }
+  if (user === null) {
+    return false;
+  }
 
   if (user.name !== userData.name || user.login !== userData.login) {
     return false;

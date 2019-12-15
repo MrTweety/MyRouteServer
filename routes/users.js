@@ -10,10 +10,12 @@ const getUserById = require("../controllers/user/getUserById");
 const deleteUserById = require("../controllers/user/deleteUserById");
 const getUserByLoginAndPassword = require("../controllers/user/getUserByLoginAndPassword");
 const userLogOut = require("../controllers/user/userLogOut");
+const getBasicUserById = require("../controllers/user/getBasicUserById");
 
 router
   .get("/", getAllUsers)
   .get("/getUser", getUser, getUserById)
+  .get("/:id", getBasicUserById)
   .delete("/deleteUser", getUser, deleteUserById)
   .post("/login", getUserDetails, getUserByLoginAndPassword)
   .post("/createUser", createUser)

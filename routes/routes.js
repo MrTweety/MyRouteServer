@@ -11,11 +11,13 @@ const updateRouteById = require("../controllers/routes/updateRouteById");
 const getHeatMap = require("../controllers/routes/getHeatMap");
 const likeRouteById = require("../controllers/routes/likeRouteById");
 const dislikeRouteById = require("../controllers/routes/dislikeRouteById");
+const getRoutesByUserId = require("../controllers/routes/getRoutesByUserId");
 
 router
   .get("/", getAllRoutes)
   .get("/heatMap", getHeatMap)
   .get("/:id", getRoute, getRouteById)
+  .get("/userRoutes/:id", getRoutesByUserId)
   .post("/", createRoute)
   .delete("/:id", getRoute, deleteRouteById)
   .put("/:id", getRoute, updateRouteById)

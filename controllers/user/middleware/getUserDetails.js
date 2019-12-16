@@ -12,10 +12,13 @@ module.exports = getUserDetails = async (req, res, next) => {
     });
   }
   try {
-    userDetails = await User.find({
+    userDetails = await User.findOne({
       login: req.body.login,
       password: req.body.password
     });
+
+    console.log("getUserDetails", userDetails);
+
     if (userDetails.length === 0) {
       return res.status(404).json({
         message: "Login fail",
@@ -30,21 +33,15 @@ module.exports = getUserDetails = async (req, res, next) => {
   }
 
   const token = jwtHandler.generateJWTToken({
-    name: userDetails[0].name,
-    login: userDetails[0].login,
-    _id: userDetails[0]._id,
+    name: userDetails.name,
+    login: userDetails.login,
+    _id: userDetails._id,
     time: Date.now
   });
 
   saveToken(token);
 
-  res.status(201).userDetails = {
-    name: userDetails[0].name,
-    login: userDetails[0].login,
-    _id: userDetails[0]._id,
-    avatar: userDetails[0].avatar,
-    mail: userDetails[0].mail,
-    token: token
-  };
+  res.status(201).userDetails = userDetails;
+  res.token = token;
   next();
 };

@@ -74,6 +74,7 @@ exports.verifyToken = (req, res, next) => {
   if (isAuthNotRequired(method, originalUrl)) {
     let authHeader = req.header("Authorization");
     tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
+    console.log(tokenJWT);
 
     const isTokenSaved = isTokenInDataBase(tokenJWT);
     if (isTokenSaved) {
@@ -85,7 +86,8 @@ exports.verifyToken = (req, res, next) => {
             ok: false,
             error: {
               reason: "Invalid Token",
-              code: 401
+              message: "Invalid Token",
+              errorCode: 401
             }
           });
         }
@@ -95,7 +97,8 @@ exports.verifyToken = (req, res, next) => {
         ok: false,
         error: {
           reason: "Missing Token",
-          code: 401
+          message: "Missing Token",
+          errorCode: 401
         }
       });
     }

@@ -3,16 +3,17 @@ const { saveToken } = require("../tokens/tokenUtils");
 const jwtHandler = require("../../common/authUtils");
 
 module.exports = createUser = async (req, res) => {
+  let userExists;
+
   try {
-    userExists = await User.find({
-      login: req.body.login,
-      mail: req.body.mail
+    userExists = await User.findOne({
+      $or: [{ login: req.body.login }, { mail: req.body.mail }]
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 
-  if (userExists.length !== 0) {
+  if (!!userExists) {
     res.status(400).json({ message: "User already exists" });
   } else {
     const user = new User({
@@ -40,6 +41,8 @@ module.exports = createUser = async (req, res) => {
         _id: newUser._id,
         avatar: newUser.avatar,
         mail: newUser.mail,
+        followed: newUser.followed,
+        followers: newUser.followers,
         token: token
       });
     } catch (error) {

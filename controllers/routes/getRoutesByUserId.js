@@ -9,7 +9,7 @@ module.exports = getRoutesByUserId = async (req, res) => {
         populate: { path: "author" }
       })
       .populate({
-        path: "author",
+        path: "routeAuthor",
         select: ["_id", "name", "avatar"]
       });
     if (route == null) {

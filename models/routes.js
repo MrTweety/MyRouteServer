@@ -46,6 +46,14 @@ const routesSchema = new Schema({
     type: Date,
     required: true,
     default: Date.now
+  },
+  distance: {
+    type: Number,
+    required: false
+  },
+  timerDuration: {
+    type: Number,
+    required: false
   }
 });
 

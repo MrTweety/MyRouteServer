@@ -6,7 +6,9 @@ module.exports = createRoute = async (req, res) => {
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     routeAuthor: req.body.routeAuthor,
-    coords: req.body.coords
+    coords: req.body.coords,
+    distance: req.body.distance,
+    timerDuration: req.body.timerDuration
   });
   try {
     const newRoute = await route.save();

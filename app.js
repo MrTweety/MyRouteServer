@@ -14,6 +14,7 @@ const jwtHandler = require("./common/authUtils");
 const dbUser = "myRouteUser"; // edit
 const dbPass = "myRoutePass"; // edit
 const dbName = "test2";
+// const dbName = "myRouteDb"; //baza Prod
 
 const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 // const mongoDBUrl = `mongodb://127.0.0.1:27017/${dbName}?retryWrites=true&w=majority`;

@@ -38,7 +38,6 @@ const isUserInDatabase = async userData => {
   let user;
   try {
     user = await User.findById(userData._id);
-    console.log("MG-log: user", user);
   } catch (error) {
     return false;
   }
@@ -49,8 +48,8 @@ const isUserInDatabase = async userData => {
   if (user.name !== userData.name || user.login !== userData.login) {
     return false;
   }
-
-  return user.length !== 0;
+  console.log("MG-log: user", user);
+  return user;
 };
 
 exports.getUserIdFromToken = req => {
@@ -67,10 +66,11 @@ exports.generateJWTToken = payload => {
   return jwt.sign(payload, SECRET_KEY);
 };
 
-exports.verifyToken = (req, res, next) => {
+exports.verifyToken = async (req, res, next) => {
   const { originalUrl, method } = req;
   let userData;
   let tokenJWT;
+  let user;
   if (isAuthNotRequired(method, originalUrl)) {
     let authHeader = req.header("Authorization");
     tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
@@ -80,18 +80,20 @@ exports.verifyToken = (req, res, next) => {
     if (isTokenSaved) {
       userData = verifyToken(tokenJWT);
 
-      isUserInDatabase(userData).then(value => {
-        if (!value) {
-          return res.status(401).send({
-            ok: false,
-            error: {
-              reason: "Invalid Token",
-              message: "Invalid Token",
-              errorCode: 401
-            }
-          });
-        }
-      });
+      user = await isUserInDatabase(userData);
+      console.log("MG-log: exports.verifyToken -> user", user);
+      if (!user) {
+        console.log("MG-log: exports.verifyToken -> !user");
+
+        return res.status(401).send({
+          ok: false,
+          error: {
+            reason: "Invalid Token",
+            message: "Invalid Token",
+            errorCode: 401
+          }
+        });
+      }
     } else {
       return res.status(401).send({
         ok: false,
@@ -103,7 +105,12 @@ exports.verifyToken = (req, res, next) => {
       });
     }
   }
+  console.log("MG-log:verifyToken");
   req.jwtToken = tokenJWT;
   req.jwtUser = userData;
-  next();
+  req.user = user;
+
+  console.log("MG-log:verifyToken");
+  return next();
+  console.log("MG-log:verifyToken");
 };

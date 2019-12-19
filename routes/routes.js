@@ -12,6 +12,8 @@ const getHeatMap = require("../controllers/routes/getHeatMap");
 const likeRouteById = require("../controllers/routes/likeRouteById");
 const dislikeRouteById = require("../controllers/routes/dislikeRouteById");
 const getRoutesByUserId = require("../controllers/routes/getRoutesByUserId");
+const findFollowedUserRoute = require("../controllers/routes/findFollowedUserRoute");
+const findNotFollowedUserRoute = require("../controllers/routes/findNotFollowedUserRoute");
 
 router
   .get("/", getAllRoutes)
@@ -22,6 +24,8 @@ router
   .delete("/:id", getRoute, deleteRouteById)
   .put("/:id", getRoute, updateRouteById)
   .post("/like/:id", getRoute, likeRouteById)
-  .post("/dislike/:id", getRoute, dislikeRouteById);
+  .post("/dislike/:id", getRoute, dislikeRouteById)
+  .post("/home", findFollowedUserRoute)
+  .post("/search", findNotFollowedUserRoute);
 
 module.exports = router;

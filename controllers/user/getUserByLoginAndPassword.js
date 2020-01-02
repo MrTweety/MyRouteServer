@@ -1,5 +1,5 @@
 module.exports = getUserByLoginAndPassword = (req, res) => {
-  res.send({
+  res.json({
     name: res.userDetails.name,
     login: res.userDetails.login,
     _id: res.userDetails._id,

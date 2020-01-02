@@ -10,12 +10,23 @@ const authRoutes = [
   {
     method: "POST",
     path: "/user/createUser"
+  },
+  {
+    method: "OPTIONS",
+    path: "/user/login"
+  },
+  {
+    method: "OPTIONS",
+    path: "/user/createUser"
   }
 ];
 
 const SECRET_KEY = "JWT_SECRET";
 
 const isAuthNotRequired = (httpMethod, url) => {
+  // console.log("MG-log: httpMethod", httpMethod);
+  // console.log("MG-log: url", url);
+
   for (let routeObj of authRoutes) {
     if (routeObj.method === httpMethod && routeObj.path === url) {
       return false;
@@ -34,7 +45,7 @@ const verifyToken = jwtToken => {
 };
 
 const isUserInDatabase = async userData => {
-  console.log("MG-log: userData", userData);
+  // console.log("MG-log: userData", userData);
   let user;
   try {
     user = await User.findById(userData._id);
@@ -68,10 +79,14 @@ exports.generateJWTToken = payload => {
 
 exports.verifyToken = async (req, res, next) => {
   const { originalUrl, method } = req;
-  let userData;
-  let tokenJWT;
-  let user;
-  if (isAuthNotRequired(method, originalUrl)) {
+  let userData = null;
+  let tokenJWT = null;
+  let user = null;
+
+  let aa = isAuthNotRequired(method, originalUrl);
+  // console.log("MG-log: exports.verifyToken -> aa", aa);
+
+  if (aa) {
     let authHeader = req.header("Authorization");
     tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
     console.log(tokenJWT);

@@ -4,7 +4,7 @@ const jwtHandler = require("../../../common/authUtils");
 
 module.exports = getUserDetails = async (req, res, next) => {
   let userDetails = [];
-
+  console.log("MG-log: getUserDetails", req.body.login, req.body.password);
   if (req.body.login === "" || req.body.password === "") {
     return res.status(404).json({
       message: "Login fail",
@@ -41,7 +41,9 @@ module.exports = getUserDetails = async (req, res, next) => {
 
   saveToken(token);
 
-  res.status(201).userDetails = userDetails;
+  res.status(200).userDetails = userDetails;
   res.token = token;
+  console.log("MG-log: getUserDetails2", userDetails, token);
+
   next();
 };

@@ -3,10 +3,12 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const swaggerUi = require("swagger-ui-express");
 const routesRoutes = require("./routes/routes");
 const usersRoutes = require("./routes/users");
 const tokensRoutes = require("./routes/tokens");
 const commentRoutes = require("./routes/comment");
+const swaggerRoutes = require("./routes/swagger");
 
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
@@ -31,6 +33,7 @@ db.on("error", error => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 const app = express();
+app.use("/api-docs", swaggerRoutes);
 
 app.options("/*", function(req, res, next) {
   res.header(
@@ -82,6 +85,8 @@ app.use("/tokens", tokensRoutes);
 app.use("/routes", routesRoutes);
 app.use("/user", usersRoutes);
 app.use("/comment", commentRoutes);
+
+app.use("/favicon.ico", express.static("public/images/favicon.ico"));
 
 app.use(errorHandler.notFound);
 app.use(errorHandler.cacheErrors);

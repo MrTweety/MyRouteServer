@@ -5,9 +5,9 @@ const jwtHandler = require("../../../common/authUtils");
 module.exports = getUserDetails = async (req, res, next) => {
   let userDetails = [];
   console.log("MG-log: getUserDetails", req.body.login, req.body.password);
-  if (req.body.login === "" || req.body.password === "") {
-    return res.status(404).json({
-      message: "Login fail",
+  if (!req.body.login || !req.body.password) {
+    return res.status(401).json({
+      message: "A username and password are required",
       logged: false
     });
   }
@@ -19,9 +19,9 @@ module.exports = getUserDetails = async (req, res, next) => {
 
     console.log("getUserDetails", userDetails);
 
-    if (userDetails.length === 0) {
-      return res.status(404).json({
-        message: "Login fail",
+    if (!userDetails || userDetails.length === 0) {
+      return res.status(401).json({
+        message: "The username or password is incorrect",
         logged: false
       });
     }

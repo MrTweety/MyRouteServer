@@ -11,12 +11,14 @@ const commentRoutes = require("./routes/comment");
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
 
-const dbUser = "myRouteUser"; // edit
-const dbPass = "myRoutePass"; // edit
-const dbName = "test2";
-// const dbName = "myRouteDb"; //baza Prod
+const {
+  MONGO_DB_HOST: dbHost,
+  MONGO_DB_NAME: dbName,
+  MONGO_DB_USER: dbUser,
+  MONGO_DB_PASS: dbPass
+} = process.env;
 
-const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@myroute-hytqd.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const mongoDBUrl = `mongodb+srv://${dbUser}:${dbPass}@${dbHost}/${dbName}?retryWrites=true&w=majority`;
 //const mongoDBUrl = `mongodb://127.0.0.1:27017/${dbName}?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoDBUrl, {
@@ -44,7 +46,6 @@ app.options("/*", function(req, res, next) {
 
   console.log("options options options");
   return res.sendStatus(200);
-  // next();
 });
 
 app.use(function(req, res, next) {

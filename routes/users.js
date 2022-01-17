@@ -22,7 +22,6 @@ router
   .get("/:id", findUserById, getBasicUserById)
   .delete("/deleteUser", findUserByJwt, deleteUserById)
   .post("/login", getUserDetails, getUserByLoginAndPassword)
-  // .post("/login", getUserDetails, getUserByLoginAndPassword)
   .post("/createUser", createUser)
   .post("/logout", userLogOut)
   .post("/follow/:id", findUserByJwt, findUserById, followUserById)

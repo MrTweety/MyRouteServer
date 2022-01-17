@@ -21,12 +21,9 @@ const authRoutes = [
   }
 ];
 
-const SECRET_KEY = "JWT_SECRET";
+const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const isAuthNotRequired = (httpMethod, url) => {
-  // console.log("MG-log: httpMethod", httpMethod);
-  // console.log("MG-log: url", url);
-
   for (let routeObj of authRoutes) {
     if (routeObj.method === httpMethod && routeObj.path === url) {
       return false;
@@ -45,7 +42,6 @@ const verifyToken = jwtToken => {
 };
 
 const isUserInDatabase = async userData => {
-  // console.log("MG-log: userData", userData);
   let user;
   try {
     user = await User.findById(userData._id);
@@ -83,10 +79,9 @@ exports.verifyToken = async (req, res, next) => {
   let tokenJWT = null;
   let user = null;
 
-  let aa = isAuthNotRequired(method, originalUrl);
-  // console.log("MG-log: exports.verifyToken -> aa", aa);
+  let authIsRequired = isAuthNotRequired(method, originalUrl);
 
-  if (aa) {
+  if (authIsRequired) {
     let authHeader = req.header("Authorization");
     tokenJWT = authHeader !== undefined ? authHeader.split(" ")[1] : false;
     console.log(tokenJWT);
@@ -120,12 +115,9 @@ exports.verifyToken = async (req, res, next) => {
       });
     }
   }
-  console.log("MG-log:verifyToken");
   req.jwtToken = tokenJWT;
   req.jwtUser = userData;
   req.user = user;
 
-  console.log("MG-log:verifyToken");
   return next();
-  console.log("MG-log:verifyToken");
 };

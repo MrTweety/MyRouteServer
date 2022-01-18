@@ -16,35 +16,6 @@ const followUserById = require("../controllers/user/followUserById");
 const unfollowUserById = require("../controllers/user/unfollowUserById");
 const findUsers = require("../controllers/user/findUsers");
 
-/**
- * @swagger
- * /user/login:
- *   post:
- *      requestBody:
- *         description: login to MyRoute
- *         content:
- *            application/json:
- *               schema:
- *                  type: object
- *                  properties:
- *                     login:
- *                        type: string
- *                        example: Aa
- *                        required: true
- *                     password:
- *                        type: string
- *                        example: Aa
- *                        required: true
- *      summary: Login user
- *      description: Login.
- *      responses:
- *         200:
- *            description: login successful
- *         401:
- *            description: Login fail
- *         500:
- *            description: Login fail - Internal Error
- */
 router
   .get("/", getAllUsers)
   .get("/getUser", findUserByJwt, getUserById)
@@ -56,29 +27,5 @@ router
   .post("/follow/:id", findUserByJwt, findUserById, followUserById)
   .post("/unfollow/:id", findUserByJwt, findUserById, unfollowUserById)
   .post("/findUsers", findUsers);
-
-/**
- * @swagger
- * /getUsers:
- *   post:
- *      security:
- *         - bearerAuth: []
- *      parameters:
- *         - name: login
- *           in: query
- *           description: number of items to skip
- *           required: true
- *         - name: password
- *           in: query
- *           description: number of items to skip
- *           required: true
- *      summary: Login user
- *      description: Login.
- *      responses:
- *         201:
- *            description: Created
- *         401:
- *            description: Dupa
- */
 
 module.exports = router;

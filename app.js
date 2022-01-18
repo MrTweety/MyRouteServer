@@ -9,6 +9,7 @@ const usersRoutes = require("./routes/users");
 const tokensRoutes = require("./routes/tokens");
 const commentRoutes = require("./routes/comment");
 const swaggerRoutes = require("./routes/swagger");
+const infoRoutes = require("./routes/info");
 
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
@@ -33,7 +34,11 @@ db.on("error", error => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 const app = express();
+app.get("/", (req, res) => {
+  return res.redirect(301, "/api-docs");
+});
 app.use("/api-docs", swaggerRoutes);
+app.use("/info", infoRoutes);
 
 app.options("/*", function(req, res, next) {
   res.header(

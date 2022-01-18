@@ -5,6 +5,10 @@ module.exports = followUserById = async (req, res) => {
      *  Transaction ??
      *  id=id
      */
+
+    if (res.userById._id.equals(res.user._id)) {
+      return res.status(400).json({ message: "Cannot follow yourself" });
+    }
     res.user.followed.addToSet(res.userById._id);
     res.userById.followers.addToSet(res.user._id);
 
@@ -15,6 +19,6 @@ module.exports = followUserById = async (req, res) => {
       followers: user.followers
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };

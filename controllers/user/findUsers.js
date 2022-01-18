@@ -11,9 +11,8 @@ module.exports = findUsers = async (req, res) => {
       }
     }).select({ name: 1, _id: 1, avatar: 1 });
 
-    console.log(users);
     if (users == null) {
-      return res.status(404).json({ message: "Cannot find user by Id" });
+      return res.status(400).json({ message: "Cannot find user by Id" });
     }
 
     res.status(200).json(users);

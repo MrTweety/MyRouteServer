@@ -5,7 +5,7 @@ module.exports = {
       description: "Local server"
     },
     {
-      url: "https://my-route-server.herokuapp.com/users",
+      url: "https://my-route-server.herokuapp.com",
       description: "Stage server"
     }
   ]

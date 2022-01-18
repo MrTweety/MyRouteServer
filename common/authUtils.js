@@ -28,14 +28,6 @@ const authRoutes = [
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const isAuthNotRequired = (httpMethod, url) => {
-  console.log(
-    "MG-log ~ file: authUtils.js ~ line 31 ~ isAuthNotRequired ~ httpMethod",
-    httpMethod
-  );
-  console.log(
-    "MG-log ~ file: authUtils.js ~ line 31 ~ isAuthNotRequired ~ url",
-    url
-  );
   for (let routeObj of authRoutes) {
     if (routeObj.method === httpMethod && routeObj.path === url) {
       return false;
@@ -67,7 +59,6 @@ const isUserInDatabase = async userData => {
   if (user.name !== userData.name || user.login !== userData.login) {
     return false;
   }
-  console.log("MG-log: user", user);
   return user;
 };
 
@@ -86,9 +77,6 @@ exports.generateJWTToken = payload => {
 };
 
 exports.verifyToken = async (req, res, next) => {
-  // console.log("MG-log ~ file: authUtils.js ~ line 77 ~ exports.verifyToken= ~ res", res)
-  // console.log("MG-log ~ file: authUtils.js ~ line 77 ~ exports.verifyToken= ~ req", req)
-  // console.log("MG-log ~ file: authUtils.js ~ line 77 ~ exports.verifyToken= ~ verifyToken")
   const { originalUrl, method } = req;
   let userData = null;
   let tokenJWT = null;
@@ -106,9 +94,9 @@ exports.verifyToken = async (req, res, next) => {
       userData = verifyToken(tokenJWT);
 
       user = await isUserInDatabase(userData);
-      console.log("MG-log: exports.verifyToken -> user", user);
+      // console.log("MG-log: exports.verifyToken -> user", user);
       if (!user) {
-        console.log("MG-log: exports.verifyToken -> !user");
+        // console.log("MG-log: exports.verifyToken -> !user");
 
         return res.status(401).send({
           ok: false,

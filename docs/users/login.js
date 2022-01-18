@@ -27,15 +27,9 @@ module.exports = {
       }
     },
     responses: {
-      "200": {
-        description: "Login successful"
-      },
-      "401": {
-        description: "Login fail"
-      },
-      "500": {
-        description: "Login fail - Internal Error"
-      }
+      "200": { description: "Login successful" },
+      "401": { description: "Login fail" },
+      "500": { description: "Login fail - Internal Error" }
     }
   }
 };

@@ -4,11 +4,6 @@ module.exports = {
     // tags: ["Sign Up"],
     description: "Sign Up to MyRoute",
     operationId: "createUser",
-    // security: [
-    //     {
-    //       "bearerAuth": [],
-    //     },
-    //   ],
     parameters: [],
     requestBody: {
       content: {
@@ -42,15 +37,9 @@ module.exports = {
       }
     },
     responses: {
-      "201": {
-        description: "Sign Up successful"
-      },
-      "400": {
-        description: "User already exists"
-      },
-      "500": {
-        description: "Sign Up - Internal Error"
-      }
+      "201": { description: "Sign Up successful" },
+      "400": { description: "User already exists" },
+      "500": { description: "Sign Up - Internal Error" }
     }
   }
 };

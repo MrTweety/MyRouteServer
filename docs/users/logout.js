@@ -4,11 +4,7 @@ module.exports = {
     // tags: ["Sign Out"],
     description: "Sign Out MyRoute",
     operationId: "userLogOut",
-    security: [
-      {
-        bearerAuth: []
-      }
-    ],
+    security: [{ bearerAuth: [] }],
     parameters: [],
     requestBody: {
       content: {
@@ -27,15 +23,9 @@ module.exports = {
       }
     },
     responses: {
-      "200": {
-        description: "Sign Out successful"
-      },
-      "401": {
-        description: "Invalid Token"
-      },
-      "500": {
-        description: "Sign Out fail - Internal Error"
-      }
+      "200": { description: "Sign Out successful" },
+      // "401": { description: "Invalid Token" },
+      "500": { description: "Sign Out fail - Internal Error" }
     }
   }
 };

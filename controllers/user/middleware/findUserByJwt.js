@@ -6,7 +6,7 @@ module.exports = findUserByJwt = async (req, res, next) => {
     const userId = req.jwtUser._id;
     user = await User.findById(userId);
     if (user == null) {
-      return res.status(404).json({ message: "Cannot find user jwt" });
+      return res.status(400).json({ message: "Cannot find user jwt" });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });

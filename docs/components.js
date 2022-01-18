@@ -12,11 +12,18 @@ module.exports = {
         bearerFormat: "JWT"
       }
     },
+    responses: {
+      Success: { description: "Success" },
+      BadRequest: { description: "Bad request" },
+      Unauthorized: { description: "Unauthorized" },
+      NotFound: { description: "Not found" },
+      InternalError: { description: "Internal Error" }
+    },
     schemas: {
       user_id: {
         type: "string",
         description: "user Id",
-        example: "tyVgf"
+        example: "61e600f259568e0cf003ccba"
       },
       User: {
         type: "object",

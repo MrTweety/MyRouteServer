@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { onlyDevAccess } = require("../middleware/utils");
+
 const findUserByJwt = require("../controllers/user/middleware/findUserByJwt");
 const findUserById = require("../controllers/user/middleware/findUserById");
 const getUserDetails = require("../controllers/user/middleware/getUserDetails");
@@ -17,7 +19,7 @@ const unfollowUserById = require("../controllers/user/unfollowUserById");
 const findUsers = require("../controllers/user/findUsers");
 
 router
-  .get("/", getAllUsers)
+  .get("/", onlyDevAccess, getAllUsers)
   .get("/getUser", findUserByJwt, getCurrentUser)
   .get("/:id", findUserById, getBasicUser)
   .delete("/deleteUser", findUserByJwt, deleteUserById)

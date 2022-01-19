@@ -5,15 +5,16 @@ exports.notFound = (req, res, next) => {
   next(error);
 };
 
-exports.catchAsync = (fn, status = 400) => {
+exports.catchAsync = (fn, status = 500) => {
   return (req, res, next) => {
     fn(req, res, next).catch(error => {
-      error.status = status;
+      error.status = error.status || status;
       next(error);
     });
   };
 };
 
 exports.cacheErrors = (err, req, res, next) => {
+  console.log("MG-log ~ file: errors.js ~ line 18 ~ err", err);
   res.status(err.status || 500).json({ message: err.message });
 };

@@ -1,10 +1,10 @@
-const { responses, BadRequest } = require("../common/responses");
+const { responses, BadRequest } = require("../../common/responses");
 
 module.exports = {
-  post: {
+  get: {
     tags: ["Users"],
-    description: "Follow",
-    operationId: "followUserById",
+    description: "Get basic user",
+    operationId: "getBasicUser",
     security: [{ bearerAuth: [] }],
 
     parameters: [

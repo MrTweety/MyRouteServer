@@ -11,6 +11,7 @@ const commentRoutes = require("./routes/comment");
 const swaggerRoutes = require("./routes/swagger");
 const infoRoutes = require("./routes/info");
 
+const { limits: limitsHandler } = require("./middleware/utils");
 const errorHandler = require("./middleware/errors");
 const jwtHandler = require("./common/authUtils");
 
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api-docs", swaggerRoutes);
 app.use("/info", infoRoutes);
+app.use(limitsHandler);
 
 app.options("/*", function(req, res, next) {
   res.header(

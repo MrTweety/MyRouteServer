@@ -1,4 +1,4 @@
-const { responses, BadRequest } = require("../common/responses");
+const { responses, BadRequest } = require("../../common/responses");
 
 module.exports = {
   delete: {

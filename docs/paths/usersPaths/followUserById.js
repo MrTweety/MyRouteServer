@@ -1,10 +1,10 @@
-const { responses, BadRequest } = require("../common/responses");
+const { responses, BadRequest } = require("../../common/responses");
 
 module.exports = {
-  get: {
+  post: {
     tags: ["Users"],
-    description: "Get basic user",
-    operationId: "getBasicUser",
+    description: "Follow",
+    operationId: "followUserById",
     security: [{ bearerAuth: [] }],
 
     parameters: [
@@ -12,6 +12,7 @@ module.exports = {
         name: "id",
         in: "path",
         schema: { $ref: "#/components/schemas/user_id" },
+        example: "5df53de687f8f312ba79a8d1",
         required: true,
         description: "A single user id"
       }

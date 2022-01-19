@@ -24,11 +24,13 @@ module.exports = {
               mail: {
                 type: "string",
                 example: "Mail",
+                format: "email",
                 required: true
               },
               password: {
                 type: "string",
                 example: "Password",
+                format: "password",
                 required: true
               }
             }

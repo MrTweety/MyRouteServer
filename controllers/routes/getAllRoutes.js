@@ -1,8 +1,12 @@
 const { Routes } = require("../../models/routes");
 
 module.exports = getAllRoutes = async (req, res) => {
+  const { offset, limit } = req.query;
+
   try {
     const routes = await Routes.find()
+      .skip(offset)
+      .limit(limit)
       .populate({
         path: "comments",
         populate: { path: "author" }

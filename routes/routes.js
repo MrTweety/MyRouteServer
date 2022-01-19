@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { onlyDevAccess } = require("../middleware/utils");
 const getRoute = require("../controllers/routes/middleware/getRoute");
 
 const getAllRoutes = require("../controllers/routes/getAllRoutes");
@@ -15,17 +16,22 @@ const getRoutesByUserId = require("../controllers/routes/getRoutesByUserId");
 const findFollowedUserRoute = require("../controllers/routes/findFollowedUserRoute");
 const findNotFollowedUserRoute = require("../controllers/routes/findNotFollowedUserRoute");
 
+// TODO: check user
 router
-  .get("/", getAllRoutes)
-  .get("/heatMap", getHeatMap)
-  .get("/:id", getRoute, getRouteById)
+  .get("/", onlyDevAccess, getAllRoutes)
   .get("/userRoutes/:id", getRoutesByUserId)
+  .get("/home", findFollowedUserRoute)
+  .get("/discover", findNotFollowedUserRoute)
+  .get("/:id", getRoute, getRouteById) //TODO: // /route/:id
   .post("/", createRoute)
-  .delete("/:id", getRoute, deleteRouteById)
-  .put("/:id", getRoute, updateRouteById)
+  .delete("/:id", onlyDevAccess, getRoute, deleteRouteById)
+  .put("/:id", onlyDevAccess, getRoute, updateRouteById)
   .post("/like/:id", getRoute, likeRouteById)
-  .post("/dislike/:id", getRoute, dislikeRouteById)
-  .post("/home", findFollowedUserRoute)
-  .post("/search", findNotFollowedUserRoute);
+  .post("/dislike/:id", getRoute, dislikeRouteById);
+
+// router
+//   .get("/heatMap", getHeatMap) // TODO: deprecated
+//   .post("/home", findFollowedUserRoute) // TODO: deprecated -> get/home
+//   .post("/search", findNotFollowedUserRoute); // TODO: deprecated -> get/discover
 
 module.exports = router;

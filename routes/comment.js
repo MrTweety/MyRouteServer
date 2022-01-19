@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { onlyDevAccess } = require("../middleware/utils");
 
 const getRoute = require("../controllers/routes/middleware/getRoute");
 const findComment = require("../controllers/comment/middleware/findComment");
@@ -11,8 +12,9 @@ const createComment = require("../controllers/comment/createComment");
 const deleteCommentById = require("../controllers/comment/deleteCommentById");
 const updateCommentById = require("../controllers/comment/updateCommentById");
 
+// TODO: check user
 router
-  .get("/", getAllComments)
+  .get("/", onlyDevAccess, getAllComments)
   .get("/:id", findComment, getCommentById)
   .get("/route/:id", getCommentsByRouteId) // get all coments for Route
   .delete("/:id", findComment, deleteCommentById)

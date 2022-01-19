@@ -1,7 +1,8 @@
 const { Routes } = require("../../models/routes");
+const { catchAsync } = require("../../middleware/errors");
 
-module.exports = createRoute = async (req, res) => {
-  const photos = req.body.photos;
+module.exports = createRoute = catchAsync(async (req, res) => {
+  const photos = req.body.photos || [];
 
   photos.map(photo => {
     const index = req.body.coords.findIndex(
@@ -19,7 +20,7 @@ module.exports = createRoute = async (req, res) => {
     name: req.body.name,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    routeAuthor: req.body.routeAuthor,
+    routeAuthor: req.body.routeAuthor || req.user._id,
     coords: req.body.coords,
     distance: req.body.distance,
     timerDuration: req.body.timerDuration
@@ -30,4 +31,4 @@ module.exports = createRoute = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+});

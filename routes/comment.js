@@ -16,9 +16,9 @@ const updateCommentById = require("../controllers/comment/updateCommentById");
 router
   .get("/", onlyDevAccess, getAllComments)
   .get("/:id", findComment, getCommentById)
+  .delete("/:id", onlyDevAccess, findComment, deleteCommentById)
+  .put("/:id", onlyDevAccess, findComment, updateCommentById)
   .get("/route/:id", getCommentsByRouteId) // get all coments for Route
-  .delete("/:id", findComment, deleteCommentById)
-  .put("/:id", findComment, updateCommentById)
-  .post("/:id", getRoute, createComment);
+  .post("/route/:id", getRoute, createComment);
 
 module.exports = router;

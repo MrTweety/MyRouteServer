@@ -1,20 +1,27 @@
 const { Coords, ArrayOfCoords } = require("./Coords");
 const { Routes } = require("./Routes");
+const { Comment } = require("./Comment");
 
 module.exports = {
   user_id: {
     type: "string",
-    description: "user Id",
+    description: "User Id",
     example: "61e600f259568e0cf003ccba"
   },
   route_id: {
     type: "string",
-    description: "route Id",
+    description: "Route Id",
     example: "5dfd01efd2324d004b34a90b"
+  },
+  comment_id: {
+    type: "string",
+    description: "Comment Id",
+    example: null
   },
   Coords,
   ArrayOfCoords,
   Routes,
+  Comment,
   User: {
     type: "object",
     properties: {

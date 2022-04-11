@@ -1,12 +1,16 @@
 {
   "name": "server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "server.js",
   "scripts": {
     "startDev": "nodemon server.js",
     "prettier-check": "prettier-check **/*.js",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "tag": "npm version patch",
+    "tag:minor": "npm version minor",
+    "bump": "npm run tag -- --no-git-tag-version",
+    "bump:minor": "npm run tag:minor -- --no-git-tag-version"
   },
   "author": "",
   "license": "ISC",
